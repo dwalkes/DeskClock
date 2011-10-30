@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.dwalkes.generic_deskclock;
+
+import com.dwalkes.generic_deskclock.R;
 
 import android.content.Context;
 import android.media.Ringtone;

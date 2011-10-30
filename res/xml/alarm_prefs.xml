@@ -22,11 +22,11 @@
     <Preference android:key="time"
         android:persistent="false"
         android:title="@string/time"/>
-    <com.android.deskclock.RepeatPreference
+    <com.dwalkes.generic_deskclock.RepeatPreference
         android:persistent="false"
         android:key="setRepeat"
         android:title="@string/alarm_repeat" />
-    <com.android.deskclock.AlarmPreference
+    <com.dwalkes.generic_deskclock.AlarmPreference
         android:key="alarm"
         android:title="@string/alert"
         android:ringtoneType="alarm"

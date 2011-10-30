@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.dwalkes.generic_deskclock;
 
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
+
+import com.dwalkes.generic_deskclock.R;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -71,7 +73,7 @@ public final class Alarm implements Parcelable {
          * The content:// style URL for this table
          */
         public static final Uri CONTENT_URI =
-                Uri.parse("content://com.android.deskclock/alarm");
+                Uri.parse("content://com.dwalkes.generic_deskclock/alarm");
 
         /**
          * Hour in 24-hour localtime 0 - 23.

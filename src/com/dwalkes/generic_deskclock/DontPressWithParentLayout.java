@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.dwalkes.generic_deskclock;
 
 import android.content.Context;
 import android.util.AttributeSet;

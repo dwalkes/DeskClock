@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.dwalkes.generic_deskclock;
 
 import static android.os.BatteryManager.BATTERY_STATUS_CHARGING;
 import static android.os.BatteryManager.BATTERY_STATUS_FULL;
@@ -23,6 +23,8 @@ import static android.os.BatteryManager.BATTERY_STATUS_UNKNOWN;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
+
+import com.dwalkes.generic_deskclock.R;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -72,7 +74,7 @@ public class DeskClock extends Activity {
     private static final String MUSIC_PACKAGE_ID = "com.android.music";
 
     // Alarm action for midnight (so we can update the date display).
-    private static final String ACTION_MIDNIGHT = "com.android.deskclock.MIDNIGHT";
+    private static final String ACTION_MIDNIGHT = "com.dwalkes.generic_deskclock.MIDNIGHT";
 
     // Intent to broadcast for dock settings.
     private static final String DOCK_SETTINGS_ACTION = "com.android.settings.DOCK_SETTINGS";

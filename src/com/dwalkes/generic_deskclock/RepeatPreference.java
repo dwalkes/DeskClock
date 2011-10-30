@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.dwalkes.generic_deskclock;
 
 import android.app.AlertDialog.Builder;
 import android.content.Context;

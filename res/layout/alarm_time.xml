@@ -28,7 +28,7 @@
             minimum height. If the bar is a checkbox, it is too tall and is
             clipped on the right.
     -->
-    <com.android.deskclock.DontPressWithParentLayout android:id="@+id/indicator"
+    <com.dwalkes.generic_deskclock.DontPressWithParentLayout android:id="@+id/indicator"
         style="@style/alarm_list_left_column"
         android:background="@drawable/clock_selector"
         android:gravity="center"
@@ -48,7 +48,7 @@
             android:layout_gravity="center"
             android:paddingTop="4dip"
             android:src="@drawable/ic_indicator_off" />
-    </com.android.deskclock.DontPressWithParentLayout>
+    </com.dwalkes.generic_deskclock.DontPressWithParentLayout>
 
     <ImageView
         android:src="@*android:drawable/divider_vertical_dark"
@@ -62,7 +62,7 @@
 
     <!-- A layout that displays the time.  Shows time, am/pm (if 12-hour),
          and an optional line below, used for day/days of week -->
-    <com.android.deskclock.DigitalClock android:id="@+id/digitalClock"
+    <com.dwalkes.generic_deskclock.DigitalClock android:id="@+id/digitalClock"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:gravity="center_vertical"
@@ -111,6 +111,6 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="?android:attr/textColorSecondary"/>
 
-    </com.android.deskclock.DigitalClock>
+    </com.dwalkes.generic_deskclock.DigitalClock>
 
 </LinearLayout>

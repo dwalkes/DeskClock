@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.android.deskclock">
+        package="com.dwalkes.generic_deskclock">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
@@ -11,7 +11,7 @@
     <application android:label="@string/app_label"
                  android:icon="@drawable/ic_launcher_alarmclock">
 
-        <provider android:name="AlarmProvider" android:authorities="com.android.deskclock" />
+		<provider android:name="com.dwalkes.generic_deskclock.AlarmProvider" android:authorities="com.dwalkes.generic_deskclock" />
 
         <activity android:name="DeskClock"
                 android:label="@string/app_label"
@@ -66,7 +66,7 @@
         <!-- This activity is basically the same as AlarmAlert but with a more
              generic theme. It also shows as full screen (with status bar) but
              with the wallpaper background. -->
-        <activity android:name="AlarmAlertFullScreen"
+        <activity android:name="com.dwalkes.generic_deskclock.AlarmAlertFullScreen"
                 android:excludeFromRecents="true"
                 android:theme="@android:style/Theme.Wallpaper.NoTitleBar"
                 android:launchMode="singleInstance"
@@ -75,7 +75,7 @@
 
         <receiver android:name="AlarmReceiver">
             <intent-filter>
-               <action android:name="com.android.deskclock.ALARM_ALERT" />
+               <action android:name="com.dwalkes.generic_deskclock.ALARM_ALERT" />
                <action android:name="alarm_killed" />
                <action android:name="cancel_snooze" />
             </intent-filter>
@@ -87,9 +87,9 @@
              intent. The service plays the alarm alert and vibrates the device.
              This allows the alert to continue playing even if another activity
              causes the AlarmAlert activity to pause. -->
-        <service android:name="AlarmKlaxon">
+        <service android:name="com.dwalkes.generic_deskclock.AlarmKlaxon">
             <intent-filter>
-                <action android:name="com.android.deskclock.ALARM_ALERT" />
+                <action android:name="com.dwalkes.generic_deskclock.ALARM_ALERT" />
             </intent-filter>
         </service>
 
@@ -101,7 +101,7 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name="AnalogAppWidgetProvider" android:label="@string/analog_gadget"
+        <receiver android:name="com.dwalkes.generic_deskclock.AnalogAppWidgetProvider" android:label="@string/analog_gadget"
         	android:icon="@drawable/ic_widget_analog_clock">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

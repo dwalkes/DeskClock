@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.dwalkes.generic_deskclock;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
@@ -38,8 +38,8 @@ public class AlarmProvider extends ContentProvider {
             UriMatcher.NO_MATCH);
 
     static {
-        sURLMatcher.addURI("com.android.deskclock", "alarm", ALARMS);
-        sURLMatcher.addURI("com.android.deskclock", "alarm/#", ALARMS_ID);
+        sURLMatcher.addURI("com.dwalkes.generic_deskclock", "alarm", ALARMS);
+        sURLMatcher.addURI("com.dwalkes.generic_deskclock", "alarm/#", ALARMS_ID);
     }
 
     private static class DatabaseHelper extends SQLiteOpenHelper {

@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.dwalkes.generic_deskclock;
+
+import com.dwalkes.generic_deskclock.R;
 
 import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;

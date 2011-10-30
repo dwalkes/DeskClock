@@ -38,6 +38,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         is probably the result of a time or timezone change */
     private final static int STALE_WINDOW = 60 * 30;
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onReceive(Context context, Intent intent) {
         if (Alarms.ALARM_KILLED.equals(intent.getAction())) {

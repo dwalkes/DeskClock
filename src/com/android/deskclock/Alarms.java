@@ -16,12 +16,14 @@
 
 package com.android.deskclock;
 
+import java.util.Calendar;
+
 import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -30,9 +32,6 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.provider.Settings;
 import android.text.format.DateFormat;
-
-import java.util.Calendar;
-import java.text.DateFormatSymbols;
 
 /**
  * The Alarms provider supplies info about Alarm Clock settings
@@ -460,9 +459,14 @@ public class Alarms {
      * Tells the StatusBar whether the alarm is enabled or disabled
      */
     private static void setStatusBarIcon(Context context, boolean enabled) {
+    	/*
+    	 * DW: Intent.ACTION_ALARM_CHANGED is not available for external applications - see
+    	 * http://yenliangl.blogspot.com/2009/11/unable-to-find-intentactionalarmchanged.html
+    	 *
         Intent alarmChanged = new Intent(Intent.ACTION_ALARM_CHANGED);
         alarmChanged.putExtra("alarmSet", enabled);
         context.sendBroadcast(alarmChanged);
+        */
     }
 
     /**

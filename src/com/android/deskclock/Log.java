@@ -25,6 +25,11 @@ import android.util.Config;
 class Log {
     public final static String LOGTAG = "AlarmClock";
 
+    /**
+     * DW: Only way to get rid of dead code warning
+     *
+     */
+    @SuppressWarnings("all")
     static final boolean LOGV = AlarmClock.DEBUG ? Config.LOGD : Config.LOGV;
 
     static void v(String logMe) {

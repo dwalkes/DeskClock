@@ -16,11 +16,13 @@
 
 package com.android.deskclock;
 
+import java.text.DateFormatSymbols;
+import java.util.Calendar;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.graphics.Typeface;
 import android.os.Handler;
@@ -30,9 +32,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import java.text.DateFormatSymbols;
-import java.util.Calendar;
 
 /**
  * Displays the time
@@ -48,6 +47,8 @@ public class DigitalClock extends LinearLayout {
     private ContentObserver mFormatChangeObserver;
     private boolean mLive = true;
     private boolean mAttached;
+    
+    private Context mContext;
 
     /* called by system on minute ticks */
     private final Handler mHandler = new Handler();
@@ -105,6 +106,7 @@ public class DigitalClock extends LinearLayout {
 
     public DigitalClock(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mContext = context;
     }
 
     @Override

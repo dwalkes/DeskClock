@@ -23,10 +23,9 @@ import android.content.res.AssetFileDescriptor;
 import android.content.res.Resources;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnErrorListener;
 import android.media.RingtoneManager;
+import android.media.MediaPlayer.OnErrorListener;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -86,7 +85,9 @@ public class AlarmKlaxon extends Service {
 
     @Override
     public void onCreate() {
-        mVibrator = new Vibrator();
+    	// create the vibrator
+    	mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+		
         // Listen for incoming calls to kill the alarm.
         mTelephonyManager =
                 (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
@@ -204,7 +205,7 @@ public class AlarmKlaxon extends Service {
                     // Must reset the media player to clear the error state.
                     mMediaPlayer.reset();
                     setDataSourceFromResource(getResources(), mMediaPlayer,
-                            com.android.internal.R.raw.fallbackring);
+                            R.raw.in_call_alarm);
                     startAlarm(mMediaPlayer);
                 } catch (Exception ex2) {
                     // At this point we just don't play anything.

@@ -21,8 +21,6 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
@@ -112,7 +110,7 @@ public class SetAlarm extends PreferenceActivity
 
         // Grab the content view so we can modify it.
         FrameLayout content = (FrameLayout) getWindow().getDecorView()
-                .findViewById(com.android.internal.R.id.content);
+                .findViewById(android.R.id.content);
 
         // Get the main ListView and remove it from the content view.
         ListView lv = getListView();

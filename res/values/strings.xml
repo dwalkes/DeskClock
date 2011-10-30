@@ -248,6 +248,9 @@
     <string name="weather_fetch_failure">Weather information currently unavailable.</string>
 
     <string name="menu_item_dock_settings" msgid="9161438664257429372">Dock settings</string>
+    
+    <!-- DW Added to fix compile errors -->
+    <string name="full_wday_month_day_no_year">E M d</string>
 </resources>
 
 

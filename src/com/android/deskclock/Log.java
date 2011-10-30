@@ -20,7 +20,6 @@
 
 package com.android.deskclock;
 
-import android.os.SystemClock;
 import android.util.Config;
 
 class Log {

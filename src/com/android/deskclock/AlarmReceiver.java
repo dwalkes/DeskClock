@@ -16,19 +16,17 @@
 
 package com.android.deskclock;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.app.KeyguardManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ContentUris;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.BroadcastReceiver;
-import android.database.Cursor;
 import android.os.Parcel;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Glue class: connects AlarmAlert IntentReceiver to AlarmAlert

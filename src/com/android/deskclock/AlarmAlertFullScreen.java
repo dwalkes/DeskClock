@@ -17,7 +17,6 @@
 package com.android.deskclock;
 
 import android.os.Bundle;
-import android.view.WindowManager;
 
 /**
  * Full screen alarm alert: pops visible indicator and plays alarm tone. This

@@ -79,7 +79,7 @@ public class Alarms {
     private final static String M12 = "h:mm aa";
     // Shared with DigitalClock
     final static String M24 = "kk:mm";
-
+    
     /**
      * Creates a new Alarm.
      */
@@ -318,6 +318,16 @@ public class Alarms {
             }
         }
     }
+    
+   
+    /**
+     * @return the intent used to fire the alarm (might be different than the intent used to
+     * play the alert)
+     */
+    private static synchronized Intent getAlarmFireIntent()
+    {
+    	return GenericDeskClockCustomization.getInstance().getAlarmFireIntent();
+    }
 
     /**
      * Sets alert in AlarmManger and StatusBar.  This is what will
@@ -335,7 +345,7 @@ public class Alarms {
             Log.v("** setAlert id " + alarm.id + " atTime " + atTimeInMillis);
         }
 
-        Intent intent = new Intent(ALARM_ALERT_ACTION);
+        Intent intent = getAlarmFireIntent();
 
         // XXX: This is a slight hack to avoid an exception in the remote
         // AlarmManagerService process. The AlarmManager adds extra data to
@@ -373,7 +383,7 @@ public class Alarms {
         AlarmManager am = (AlarmManager)
                 context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent sender = PendingIntent.getBroadcast(
-                context, 0, new Intent(ALARM_ALERT_ACTION),
+                context, 0, getAlarmFireIntent(),
                 PendingIntent.FLAG_CANCEL_CURRENT);
         am.cancel(sender);
         setStatusBarIcon(context, false);

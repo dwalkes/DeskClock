@@ -151,43 +151,38 @@ public class AlarmClock extends Activity implements OnItemClickListener {
         final AdapterContextMenuInfo info =
                 (AdapterContextMenuInfo) item.getMenuInfo();
         final int id = (int) info.id;
-        switch (item.getItemId()) {
-            case R.id.delete_alarm:
-                // Confirm that the alarm will be deleted.
-                new AlertDialog.Builder(this)
-                        .setTitle(getString(R.string.delete_alarm))
-                        .setMessage(getString(R.string.delete_alarm_confirm))
-                        .setPositiveButton(android.R.string.ok,
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface d,
-                                            int w) {
-                                        Alarms.deleteAlarm(AlarmClock.this, id);
-                                    }
-                                })
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .show();
-                return true;
-
-            case R.id.enable_alarm:
-                final Cursor c = (Cursor) mAlarmsList.getAdapter()
-                        .getItem(info.position);
-                final Alarm alarm = new Alarm(c);
-                Alarms.enableAlarm(this, alarm.id, !alarm.enabled);
-                if (!alarm.enabled) {
-                    SetAlarm.popAlarmSetToast(this, alarm.hour, alarm.minutes,
-                            alarm.daysOfWeek);
-                }
-                return true;
-
-            case R.id.edit_alarm:
-                Intent intent = new Intent(this, SetAlarm.class);
-                intent.putExtra(Alarms.ALARM_ID, id);
-                startActivity(intent);
-                return true;
-
-            default:
-                break;
-        }
+        if (item.getItemId() == R.id.delete_alarm) {
+			// Confirm that the alarm will be deleted.
+			new AlertDialog.Builder(this)
+			        .setTitle(getString(R.string.delete_alarm))
+			        .setMessage(getString(R.string.delete_alarm_confirm))
+			        .setPositiveButton(android.R.string.ok,
+			                new DialogInterface.OnClickListener() {
+			                    public void onClick(DialogInterface d,
+			                            int w) {
+			                        Alarms.deleteAlarm(AlarmClock.this, id);
+			                    }
+			                })
+			        .setNegativeButton(android.R.string.cancel, null)
+			        .show();
+			return true;
+		} else if (item.getItemId() == R.id.enable_alarm) {
+			final Cursor c = (Cursor) mAlarmsList.getAdapter()
+			        .getItem(info.position);
+			final Alarm alarm = new Alarm(c);
+			Alarms.enableAlarm(this, alarm.id, !alarm.enabled);
+			if (!alarm.enabled) {
+			    SetAlarm.popAlarmSetToast(this, alarm.hour, alarm.minutes,
+			            alarm.daysOfWeek);
+			}
+			return true;
+		} else if (item.getItemId() == R.id.edit_alarm) {
+			Intent intent = new Intent(this, SetAlarm.class);
+			intent.putExtra(Alarms.ALARM_ID, id);
+			startActivity(intent);
+			return true;
+		} else {
+		}
         return super.onContextItemSelected(item);
     }
 
@@ -291,19 +286,17 @@ public class AlarmClock extends Activity implements OnItemClickListener {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_item_settings:
-                startActivity(new Intent(this, SettingsActivity.class));
-                return true;
-            case R.id.menu_item_desk_clock:
-                startActivity(new Intent(this, DeskClock.class));
-                return true;
-            case R.id.menu_item_add_alarm:
-                addNewAlarm();
-                return true;
-            default:
-                break;
-        }
+        if (item.getItemId() == R.id.menu_item_settings) {
+			startActivity(new Intent(this, SettingsActivity.class));
+			return true;
+		} else if (item.getItemId() == R.id.menu_item_desk_clock) {
+			startActivity(new Intent(this, DeskClock.class));
+			return true;
+		} else if (item.getItemId() == R.id.menu_item_add_alarm) {
+			addNewAlarm();
+			return true;
+		} else {
+		}
         return super.onOptionsItemSelected(item);
     }
 

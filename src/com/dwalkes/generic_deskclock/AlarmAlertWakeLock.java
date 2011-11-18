@@ -23,11 +23,11 @@ import android.os.PowerManager;
  * Hold a wakelock that can be acquired in the AlarmReceiver and
  * released in the AlarmAlert activity
  */
-class AlarmAlertWakeLock {
+public class AlarmAlertWakeLock {
 
     private static PowerManager.WakeLock sCpuWakeLock;
 
-    static void acquireCpuWakeLock(Context context) {
+    public static void acquireCpuWakeLock(Context context) {
         Log.v("Acquiring cpu wake lock");
         if (sCpuWakeLock != null) {
             return;
@@ -43,7 +43,7 @@ class AlarmAlertWakeLock {
         sCpuWakeLock.acquire();
     }
 
-    static void releaseCpuLock() {
+    public static void releaseCpuLock() {
         Log.v("Releasing cpu wake lock");
         if (sCpuWakeLock != null) {
             sCpuWakeLock.release();

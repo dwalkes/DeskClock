@@ -73,7 +73,8 @@ public final class Alarm implements Parcelable {
          * The content:// style URL for this table
          */
         public static final Uri CONTENT_URI =
-                Uri.parse("content://com.dwalkes.generic_deskclock/alarm");
+                Uri.parse("content://" + GenericDeskClockCustomization.getInstance().getContentURIAuthority() +"/alarm");
+        
 
         /**
          * Hour in 24-hour localtime 0 - 23.

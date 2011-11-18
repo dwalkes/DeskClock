@@ -34,12 +34,17 @@ public class AlarmProvider extends ContentProvider {
 
     private static final int ALARMS = 1;
     private static final int ALARMS_ID = 2;
-    private static final UriMatcher sURLMatcher = new UriMatcher(
-            UriMatcher.NO_MATCH);
+    private static UriMatcher mURLMatcher = null;
 
-    static {
-        sURLMatcher.addURI("com.dwalkes.generic_deskclock", "alarm", ALARMS);
-        sURLMatcher.addURI("com.dwalkes.generic_deskclock", "alarm/#", ALARMS_ID);
+    private synchronized UriMatcher getMatcher()
+    {
+    	if( mURLMatcher == null ) {
+    		mURLMatcher = new UriMatcher(
+	    	            UriMatcher.NO_MATCH);
+            mURLMatcher.addURI(GenericDeskClockCustomization.getInstance().getContentURIAuthority(), "alarm", ALARMS);
+            mURLMatcher.addURI(GenericDeskClockCustomization.getInstance().getContentURIAuthority(), "alarm/#", ALARMS_ID);
+    	}
+    	return mURLMatcher;
     }
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
@@ -97,7 +102,7 @@ public class AlarmProvider extends ContentProvider {
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
         // Generate the body of the query
-        int match = sURLMatcher.match(url);
+        int match = getMatcher().match(url);
         switch (match) {
             case ALARMS:
                 qb.setTables("alarms");
@@ -126,7 +131,7 @@ public class AlarmProvider extends ContentProvider {
 
     @Override
     public String getType(Uri url) {
-        int match = sURLMatcher.match(url);
+        int match = getMatcher().match(url);
         switch (match) {
             case ALARMS:
                 return "vnd.android.cursor.dir/alarms";
@@ -141,7 +146,7 @@ public class AlarmProvider extends ContentProvider {
     public int update(Uri url, ContentValues values, String where, String[] whereArgs) {
         int count;
         long rowId = 0;
-        int match = sURLMatcher.match(url);
+        int match = getMatcher().match(url);
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         switch (match) {
             case ALARMS_ID: {
@@ -162,7 +167,7 @@ public class AlarmProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri url, ContentValues initialValues) {
-        if (sURLMatcher.match(url) != ALARMS) {
+        if (getMatcher().match(url) != ALARMS) {
             throw new IllegalArgumentException("Cannot insert into URL: " + url);
         }
 
@@ -211,7 +216,7 @@ public class AlarmProvider extends ContentProvider {
     public int delete(Uri url, String where, String[] whereArgs) {
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         int count;
-        switch (sURLMatcher.match(url)) {
+        switch (getMatcher().match(url)) {
             case ALARMS:
                 count = db.delete("alarms", where, whereArgs);
                 break;

@@ -17,6 +17,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
   <item android:state_pressed="false"
       android:drawable="@android:color/background_dark" />
+        <!-- DW: Replaced private reference with version at http://code.google.com/p/npr-android-app/  -->
   <item android:state_pressed="true"
-      android:drawable="@*android:drawable/list_selector_background_pressed" />
+      android:drawable="@drawable/list_selector_background_pressed" />
 </selector>

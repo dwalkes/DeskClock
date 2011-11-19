@@ -23,13 +23,14 @@
     android:paddingLeft="10dip"
     android:paddingRight="10dip">
 
+    <!-- DW: Replaced reference to ic_dialog_time with @drawable/ic_menu_desk_clock -->
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:paddingTop="6dip"
         android:paddingRight="10dip"
-        android:src="@*android:drawable/ic_dialog_time"/>
+        android:src="@drawable/ic_menu_desk_clock"/>
 
     <TextView android:id="@+id/header_time"
         style="?android:attr/textAppearanceLarge"

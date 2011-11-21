@@ -1,0 +1,4 @@
+This project is a branch of the android DeskClock source with modifications to support build as a library for use with other projects.
+
+The initial project used with this library is wakemeski - see www.wakemeski.com
+

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.dwalkes.generic_deskclock">
+        package="com.wakemeski.generic_deskclock">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
@@ -11,9 +11,9 @@
     <application android:label="@string/app_label"
                  android:icon="@drawable/ic_launcher_alarmclock">
 
-		<provider android:name="com.dwalkes.generic_deskclock.AlarmProvider" android:authorities="com.dwalkes.generic_deskclock" />
+		<provider android:name=".AlarmProvider" android:authorities="com.wakemeski.generic_deskclock" />
 
-        <activity android:name="com.dwalkes.generic_deskclock.DeskClock"
+        <activity android:name="com.wakemeski.generic_deskclock.DeskClock"
                 android:label="@string/app_label"
                 android:theme="@android:style/Theme.Wallpaper.NoTitleBar"
                 android:icon="@drawable/ic_widget_analog_clock"
@@ -43,7 +43,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.dwalkes.generic_deskclock.SettingsActivity"
+        <activity android:name="com.wakemeski.generic_deskclock.SettingsActivity"
                 android:label="@string/settings"
                 android:taskAffinity=""
                 android:excludeFromRecents="true"
@@ -53,10 +53,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.dwalkes.generic_deskclock.SetAlarm" android:label="@string/set_alarm"
+        <activity android:name="com.wakemeski.generic_deskclock.SetAlarm" android:label="@string/set_alarm"
                 android:configChanges="orientation|keyboardHidden|keyboard|navigation" />
 
-        <activity android:name="com.dwalkes.generic_deskclock.AlarmAlert"
+        <activity android:name="com.wakemeski.generic_deskclock.AlarmAlert"
                 android:excludeFromRecents="true"
                 android:theme="@style/alarm_alert"
                 android:launchMode="singleInstance"
@@ -66,16 +66,16 @@
         <!-- This activity is basically the same as AlarmAlert but with a more
              generic theme. It also shows as full screen (with status bar) but
              with the wallpaper background. -->
-        <activity android:name="com.dwalkes.generic_deskclock.AlarmAlertFullScreen"
+        <activity android:name=".AlarmAlertFullScreen"
                 android:excludeFromRecents="true"
                 android:theme="@android:style/Theme.Wallpaper.NoTitleBar"
                 android:launchMode="singleInstance"
                 android:taskAffinity=""
                 android:configChanges="orientation|keyboardHidden|keyboard|navigation"/>
 
-        <receiver android:name="com.dwalkes.generic_deskclock.AlarmReceiver">
+        <receiver android:name="com.wakemeski.generic_deskclock.AlarmReceiver">
             <intent-filter>
-               <action android:name="com.dwalkes.generic_deskclock.ALARM_ALERT" />
+               <action android:name="com.wakemeski.generic_deskclock.ALARM_ALERT" />
                <action android:name="alarm_killed" />
                <action android:name="cancel_snooze" />
             </intent-filter>
@@ -87,13 +87,13 @@
              intent. The service plays the alarm alert and vibrates the device.
              This allows the alert to continue playing even if another activity
              causes the AlarmAlert activity to pause. -->
-        <service android:name="com.dwalkes.generic_deskclock.AlarmKlaxon">
+        <service android:name=".AlarmKlaxon">
             <intent-filter>
-                <action android:name="com.dwalkes.generic_deskclock.ALARM_ALERT" />
+                <action android:name="com.wakemeski.generic_deskclock.ALARM_ALERT" />
             </intent-filter>
         </service>
 
-        <receiver android:name="com.dwalkes.generic_deskclock.AlarmInitReceiver">
+        <receiver android:name="com.wakemeski.generic_deskclock.AlarmInitReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.TIME_SET" />
@@ -101,7 +101,7 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name="com.dwalkes.generic_deskclock.AnalogAppWidgetProvider" android:label="@string/analog_gadget"
+        <receiver android:name=".AnalogAppWidgetProvider" android:label="@string/analog_gadget"
         	android:icon="@drawable/ic_widget_analog_clock">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

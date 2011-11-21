@@ -1,4 +1,6 @@
-package com.dwalkes.generic_deskclock;
+package com.wakemeski.generic_deskclock;
+
+import com.wakemeski.generic_deskclock.R;
 
 import android.content.Intent;
 import android.view.Menu;

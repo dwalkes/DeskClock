@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.dwalkes.generic_deskclock;
+package com.wakemeski.generic_deskclock;
 
 import java.util.Calendar;
 
@@ -41,7 +41,7 @@ public class Alarms {
     // This action triggers the AlarmReceiver as well as the AlarmKlaxon. It
     // is a public action used in the manifest for receiving Alarm broadcasts
     // from the alarm manager.
-    public static final String ALARM_ALERT_ACTION = "com.dwalkes.generic_deskclock.ALARM_ALERT";
+    public static final String ALARM_ALERT_ACTION = "com.wakemeski.generic_deskclock.ALARM_ALERT";
 
     // This is a private action used by the AlarmKlaxon to update the UI to
     // show the alarm has been killed.

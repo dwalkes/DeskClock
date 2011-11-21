@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-package com.dwalkes.generic_deskclock;
+package com.wakemeski.generic_deskclock;
 
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
-
-import com.dwalkes.generic_deskclock.R;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -28,6 +26,8 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.BaseColumns;
+
+import com.wakemeski.generic_deskclock.R;
 
 public final class Alarm implements Parcelable {
 

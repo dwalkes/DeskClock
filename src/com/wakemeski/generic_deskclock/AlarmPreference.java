@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.dwalkes.generic_deskclock;
+package com.wakemeski.generic_deskclock;
 
-import com.dwalkes.generic_deskclock.R;
+import com.wakemeski.generic_deskclock.R;
 
 import android.content.Context;
 import android.media.Ringtone;

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009 The Android Open Source Project
+ * Copyright (C) 2008 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,24 +14,28 @@
  * limitations under the License.
  */
 
-package com.dwalkes.generic_deskclock;
+package com.wakemeski.generic_deskclock;
 
-import android.os.Bundle;
+import android.widget.Toast;
 
-/**
- * Full screen alarm alert: pops visible indicator and plays alarm tone. This
- * activity displays the alert in full screen in order to be secure. The
- * background is the current wallpaper.
- */
-public class AlarmAlertFullScreen extends AlarmAlert {
-    @Override
-    protected void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+public class ToastMaster {
+
+    private static Toast sToast = null;
+
+    private ToastMaster() {
+
     }
-    
-    @Override
-    public void onBackPressed() {
-        // Don't allow back to dismiss.
-        return;
+
+    public static void setToast(Toast toast) {
+        if (sToast != null)
+            sToast.cancel();
+        sToast = toast;
     }
+
+    public static void cancelToast() {
+        if (sToast != null)
+            sToast.cancel();
+        sToast = null;
+    }
+
 }

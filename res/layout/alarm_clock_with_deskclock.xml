@@ -70,7 +70,7 @@
             android:src="@drawable/ic_clock_strip_desk_clock"
             android:contentDescription="@string/desk_clock_button_description"/>
 
-        <com.dwalkes.generic_deskclock.DigitalClock
+        <com.wakemeski.generic_deskclock.DigitalClock
             style="@style/ButtonStripRight"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
@@ -96,7 +96,7 @@
 
             </LinearLayout>
 
-      </com.dwalkes.generic_deskclock.DigitalClock>
+      </com.wakemeski.generic_deskclock.DigitalClock>
 
     </LinearLayout>
 

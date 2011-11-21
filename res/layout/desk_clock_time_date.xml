@@ -24,7 +24,7 @@
     android:layout_weight="1"
     >
 
-    <com.dwalkes.generic_deskclock.DigitalClock android:id="@+id/time"
+    <com.wakemeski.generic_deskclock.DigitalClock android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dip"
@@ -61,7 +61,7 @@
             android:shadowRadius="3.0"
             />
 
-    </com.dwalkes.generic_deskclock.DigitalClock>
+    </com.wakemeski.generic_deskclock.DigitalClock>
 
     <TextView android:id="@+id/date"
         android:layout_width="wrap_content"

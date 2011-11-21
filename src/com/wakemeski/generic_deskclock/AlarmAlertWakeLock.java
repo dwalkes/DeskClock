@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.dwalkes.generic_deskclock;
+package com.wakemeski.generic_deskclock;
 
 import android.content.Context;
 import android.os.PowerManager;

@@ -18,7 +18,7 @@
  * package-level logging flag
  */
 
-package com.dwalkes.generic_deskclock;
+package com.wakemeski.generic_deskclock;
 
 import android.util.Config;
 

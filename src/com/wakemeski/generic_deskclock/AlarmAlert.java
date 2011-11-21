@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.dwalkes.generic_deskclock;
+package com.wakemeski.generic_deskclock;
 
 import java.util.Calendar;
 
-import com.dwalkes.generic_deskclock.R;
+import com.wakemeski.generic_deskclock.R;
 
 import android.app.Activity;
 import android.app.Notification;

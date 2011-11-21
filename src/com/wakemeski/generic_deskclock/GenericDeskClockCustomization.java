@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.dwalkes.generic_deskclock;
+package com.wakemeski.generic_deskclock;
+
+import com.wakemeski.generic_deskclock.R;
 
 import android.content.Context;
 import android.content.Intent;
@@ -80,7 +82,7 @@ public class GenericDeskClockCustomization {
 	 * applications which may happen to use this library.
 	 */
 	public String getContentURIAuthority() {
-		return new String("com.dwalkes.generic_deskclock");
+		return new String("com.wakemeski.generic_deskclock");
 	}
 	
 	public String getAlarmScreenTitle() {

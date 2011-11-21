@@ -30,7 +30,7 @@ class Log {
      *
      */
     @SuppressWarnings("all")
-    static final boolean LOGV = AlarmClock.DEBUG ? Config.LOGD : Config.LOGV;
+    static final boolean LOGV = AlarmClockBase.DEBUG ? Config.LOGD : Config.LOGV;
 
     static void v(String logMe) {
         android.util.Log.v(LOGTAG, /* SystemClock.uptimeMillis() + " " + */ logMe);

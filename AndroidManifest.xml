@@ -32,7 +32,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.dwalkes.generic_deskclock.AlarmClock"
+        <activity android:name=".AlarmClockWithDeskClock"
                 android:label="@string/alarm_list_title"
                 android:taskAffinity=""
                 android:excludeFromRecents="true"

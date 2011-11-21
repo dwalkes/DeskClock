@@ -652,7 +652,7 @@ public class DeskClock extends Activity {
 
         final View.OnClickListener alarmClickListener = new View.OnClickListener() {
             public void onClick(View v) {
-                startActivity(new Intent(DeskClock.this, AlarmClock.class));
+                startActivity(new Intent(DeskClock.this, GenericDeskClockCustomization.getInstance().getAlarmClock()));
             }
         };
 
@@ -746,10 +746,10 @@ public class DeskClock extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_item_alarms) {
-			startActivity(new Intent(DeskClock.this, AlarmClock.class));
+			startActivity(new Intent(DeskClock.this, GenericDeskClockCustomization.getInstance().getAlarmClock()));
 			return true;
 		} else if (item.getItemId() == R.id.menu_item_add_alarm) {
-			AlarmClock.addNewAlarm(this);
+			AlarmClockBase.addNewAlarm(this);
 			return true;
 		} else if (item.getItemId() == R.id.menu_item_dock_settings) {
 			startActivity(new Intent(DOCK_SETTINGS_ACTION));

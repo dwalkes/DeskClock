@@ -18,8 +18,6 @@ package com.dwalkes.generic_deskclock;
 
 import java.util.Calendar;
 
-import com.dwalkes.generic_deskclock.R;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -40,7 +38,6 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CursorAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -50,7 +47,7 @@ import android.widget.AdapterView.OnItemClickListener;
 /**
  * AlarmClock application.
  */
-public class AlarmClock extends Activity implements OnItemClickListener {
+public class AlarmClockBase extends Activity implements OnItemClickListener {
 
     final static String PREFERENCES = "AlarmClock";
 
@@ -126,7 +123,7 @@ public class AlarmClock extends Activity implements OnItemClickListener {
             TextView daysOfWeekView =
                     (TextView) digitalClock.findViewById(R.id.daysOfWeek);
             final String daysOfWeekStr =
-                    alarm.daysOfWeek.toString(AlarmClock.this, false);
+                    alarm.daysOfWeek.toString(AlarmClockBase.this, false);
             if (daysOfWeekStr != null && daysOfWeekStr.length() != 0) {
                 daysOfWeekView.setText(daysOfWeekStr);
                 daysOfWeekView.setVisibility(View.VISIBLE);
@@ -160,7 +157,7 @@ public class AlarmClock extends Activity implements OnItemClickListener {
 			                new DialogInterface.OnClickListener() {
 			                    public void onClick(DialogInterface d,
 			                            int w) {
-			                        Alarms.deleteAlarm(AlarmClock.this, id);
+			                        Alarms.deleteAlarm(AlarmClockBase.this, id);
 			                    }
 			                })
 			        .setNegativeButton(android.R.string.cancel, null)
@@ -196,35 +193,34 @@ public class AlarmClock extends Activity implements OnItemClickListener {
         updateLayout();
     }
 
-    private void updateLayout() {
-        setContentView(R.layout.alarm_clock);
-        mAlarmsList = (ListView) findViewById(R.id.alarms_list);
-        AlarmTimeAdapter adapter = new AlarmTimeAdapter(this, mCursor);
-        mAlarmsList.setAdapter(adapter);
-        mAlarmsList.setVerticalScrollBarEnabled(true);
-        mAlarmsList.setOnItemClickListener(this);
-        mAlarmsList.setOnCreateContextMenuListener(this);
-
-        View addAlarm = findViewById(R.id.add_alarm);
-        addAlarm.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    addNewAlarm();
-                }
-            });
-        // Make the entire view selected when focused.
-        addAlarm.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                public void onFocusChange(View v, boolean hasFocus) {
-                    v.setSelected(hasFocus);
-                }
-        });
-
-        ImageButton deskClock =
-                (ImageButton) findViewById(R.id.desk_clock_button);
-        deskClock.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    startActivity(new Intent(AlarmClock.this, DeskClock.class));
-                }
-        });
+    /**
+     * Allow an extended class to customize the content view
+     */
+    protected void setContentView() {
+    	setContentView(R.layout.alarm_clock_base);
+    }
+    
+    protected void updateLayout() {
+    	setContentView();
+	    mAlarmsList = (ListView) findViewById(R.id.alarms_list);
+	    AlarmTimeAdapter adapter = new AlarmTimeAdapter(this, mCursor);
+	    mAlarmsList.setAdapter(adapter);
+	    mAlarmsList.setVerticalScrollBarEnabled(true);
+	    mAlarmsList.setOnItemClickListener(this);
+	    mAlarmsList.setOnCreateContextMenuListener(this);
+	
+	    View addAlarm = findViewById(R.id.add_alarm);
+	    addAlarm.setOnClickListener(new View.OnClickListener() {
+	            public void onClick(View v) {
+	                addNewAlarm();
+	            }
+	        });
+	    // Make the entire view selected when focused.
+	    addAlarm.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+	            public void onFocusChange(View v, boolean hasFocus) {
+	                v.setSelected(hasFocus);
+	            }
+	    });
     }
 
     // Version of addNewAlarm that can be called from any activity, e.g. DeskClock
@@ -289,20 +285,16 @@ public class AlarmClock extends Activity implements OnItemClickListener {
         if (item.getItemId() == R.id.menu_item_settings) {
 			startActivity(new Intent(this, SettingsActivity.class));
 			return true;
-		} else if (item.getItemId() == R.id.menu_item_desk_clock) {
-			startActivity(new Intent(this, DeskClock.class));
-			return true;
 		} else if (item.getItemId() == R.id.menu_item_add_alarm) {
 			addNewAlarm();
 			return true;
-		} else {
 		}
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.alarm_list_menu, menu);
+        getMenuInflater().inflate(R.menu.alarm_list_menu_base, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

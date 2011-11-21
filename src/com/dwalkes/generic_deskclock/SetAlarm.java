@@ -296,7 +296,7 @@ public class SetAlarm extends PreferenceActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-        if (AlarmClock.DEBUG) {
+        if (AlarmClockBase.DEBUG) {
             mTestAlarmItem = menu.add(0, 0, 0, "test alarm");
         }
 
@@ -304,7 +304,7 @@ public class SetAlarm extends PreferenceActivity
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (AlarmClock.DEBUG) {
+        if (AlarmClockBase.DEBUG) {
             if (item == mTestAlarmItem) {
                 setTestAlarm();
                 return true;

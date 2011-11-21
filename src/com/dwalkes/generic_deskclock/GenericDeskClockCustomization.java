@@ -15,6 +15,7 @@
  */
 package com.dwalkes.generic_deskclock;
 
+import android.content.Context;
 import android.content.Intent;
 
 /**
@@ -54,8 +55,22 @@ public class GenericDeskClockCustomization {
 	 * a different action than displaying the alert, for instance to check for conditions
 	 * before conditionally firing the alarm. 
 	 */
-	public Intent getAlarmFireIntent() {
+	public Intent getAlarmFireIntent(Context context) {
 		return new Intent(Alarms.ALARM_ALERT_ACTION);
+	}
+	
+	public Intent getAlarmSnoozeIntent(Context context) {
+		return getAlarmFireIntent(context);
+	}
+	
+	/**
+	 * @param context
+	 * @return the intent to use when showing the alert, after the alarm logic associated with alarm
+	 * fire has determined this is an alarm that needs to force an alert.  If the application doesn't do 
+	 * anything other than show the alert when the alarm fires, this will use teh same intent as {@link #getAlarmFireIntent(Context)}
+	 */
+	public Intent getShowAlertIntent(Context context) {
+		return getAlarmFireIntent(context);
 	}
 	
 	/**
@@ -72,4 +87,28 @@ public class GenericDeskClockCustomization {
 		return new String("Alarm");
 	}
 	
+	/**
+	 * @return the class type used to implement the AlarmClock dialog where a user can pick/enable specific
+	 * alarms
+	 */
+	@SuppressWarnings("unchecked")
+	public Class getAlarmClock() {
+		return AlarmClockWithDeskClock.class;
+	}
+	
+	/**
+	 * @return true if the application should save the alarm settings in Settings.System.NEXT_ALARM_FORMATTED with 
+	 * the next alarm time.
+	 */
+	public boolean isSaveAlarmInSystemSettings() {
+		return true;
+	}
+	
+	/**
+	 * @param context
+	 * @return the string to use when no label is specified for the alarm in the alarm alert dialog
+	 */
+	public String getAlarmAlertDefaultLabel(Context context) {
+		return context.getString(R.string.default_label);
+	}
 }

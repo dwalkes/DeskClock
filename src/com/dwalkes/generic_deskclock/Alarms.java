@@ -116,8 +116,11 @@ public class Alarms {
                 null, null, Alarm.Columns.DEFAULT_SORT_ORDER);
     }
 
-    // Private method to get a more limited set of alarms from the database.
-    private static Cursor getFilteredAlarmsCursor(
+    /**
+     * A query of alarms which are currently enabled
+     * @return a cursor over enabled alarms
+     */
+    public static Cursor getEnabledAlarmsQuery(
             ContentResolver contentResolver) {
         return contentResolver.query(Alarm.Columns.CONTENT_URI,
                 Alarm.Columns.ALARM_QUERY_COLUMNS, Alarm.Columns.WHERE_ENABLED,
@@ -195,7 +198,7 @@ public class Alarms {
             // If this alarm fires before the next snooze, clear the snooze to
             // enable this alarm.
             SharedPreferences prefs = context.getSharedPreferences(
-                    AlarmClock.PREFERENCES, 0);
+                    AlarmClockBase.PREFERENCES, 0);
             long snoozeTime = prefs.getLong(PREF_SNOOZE_TIME, 0);
             if (timeInMillis < snoozeTime) {
                 clearSnoozePreference(context, prefs);
@@ -252,7 +255,7 @@ public class Alarms {
         Alarm alarm = null;
         long minTime = Long.MAX_VALUE;
         long now = System.currentTimeMillis();
-        Cursor cursor = getFilteredAlarmsCursor(context.getContentResolver());
+        Cursor cursor = getEnabledAlarmsQuery(context.getContentResolver());
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 do {
@@ -283,7 +286,7 @@ public class Alarms {
      * boot.
      */
     public static void disableExpiredAlarms(final Context context) {
-        Cursor cur = getFilteredAlarmsCursor(context.getContentResolver());
+        Cursor cur = getEnabledAlarmsQuery(context.getContentResolver());
         long now = System.currentTimeMillis();
 
         if (cur.moveToFirst()) {
@@ -312,7 +315,7 @@ public class Alarms {
         if (!enableSnoozeAlert(context)) {
             Alarm alarm = calculateNextAlert(context);
             if (alarm != null) {
-                enableAlert(context, alarm, alarm.time);
+                enableAlert(context, alarm, alarm.time,false);
             } else {
                 disableAlert(context);
             }
@@ -324,9 +327,9 @@ public class Alarms {
      * @return the intent used to fire the alarm (might be different than the intent used to
      * play the alert)
      */
-    private static synchronized Intent getAlarmFireIntent()
+    private static synchronized Intent getAlarmFireIntent(Context context)
     {
-    	return GenericDeskClockCustomization.getInstance().getAlarmFireIntent();
+    	return GenericDeskClockCustomization.getInstance().getAlarmFireIntent(context);
     }
 
     /**
@@ -337,7 +340,7 @@ public class Alarms {
      * @param atTimeInMillis milliseconds since epoch
      */
     private static void enableAlert(Context context, final Alarm alarm,
-            final long atTimeInMillis) {
+            final long atTimeInMillis, boolean isSnoozeAlert ) {
         AlarmManager am = (AlarmManager)
                 context.getSystemService(Context.ALARM_SERVICE);
 
@@ -345,7 +348,10 @@ public class Alarms {
             Log.v("** setAlert id " + alarm.id + " atTime " + atTimeInMillis);
         }
 
-        Intent intent = getAlarmFireIntent();
+        Intent intent = getAlarmFireIntent(context);
+        if( isSnoozeAlert ) {
+        	intent = GenericDeskClockCustomization.getInstance().getAlarmSnoozeIntent(context);
+        }
 
         // XXX: This is a slight hack to avoid an exception in the remote
         // AlarmManagerService process. The AlarmManager adds extra data to
@@ -383,7 +389,7 @@ public class Alarms {
         AlarmManager am = (AlarmManager)
                 context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent sender = PendingIntent.getBroadcast(
-                context, 0, getAlarmFireIntent(),
+                context, 0, getAlarmFireIntent(context),
                 PendingIntent.FLAG_CANCEL_CURRENT);
         am.cancel(sender);
         setStatusBarIcon(context, false);
@@ -393,7 +399,7 @@ public class Alarms {
     static void saveSnoozeAlert(final Context context, final int id,
             final long time) {
         SharedPreferences prefs = context.getSharedPreferences(
-                AlarmClock.PREFERENCES, 0);
+                AlarmClockBase.PREFERENCES, 0);
         if (id == -1) {
             clearSnoozePreference(context, prefs);
         } else {
@@ -411,7 +417,7 @@ public class Alarms {
      */
     static void disableSnoozeAlert(final Context context, final int id) {
         SharedPreferences prefs = context.getSharedPreferences(
-                AlarmClock.PREFERENCES, 0);
+                AlarmClockBase.PREFERENCES, 0);
         int snoozeId = prefs.getInt(PREF_SNOOZE_ID, -1);
         if (snoozeId == -1) {
             // No snooze set, do nothing.
@@ -446,7 +452,7 @@ public class Alarms {
      */
     private static boolean enableSnoozeAlert(final Context context) {
         SharedPreferences prefs = context.getSharedPreferences(
-                AlarmClock.PREFERENCES, 0);
+                AlarmClockBase.PREFERENCES, 0);
 
         int id = prefs.getInt(PREF_SNOOZE_ID, -1);
         if (id == -1) {
@@ -461,7 +467,7 @@ public class Alarms {
         // has the right time to compare.
         alarm.time = time;
 
-        enableAlert(context, alarm, time);
+        enableAlert(context, alarm, time, true);
         return true;
     }
 
@@ -538,9 +544,11 @@ public class Alarms {
      * settings so those who care can make use of it.
      */
     static void saveNextAlarm(final Context context, String timeString) {
-        Settings.System.putString(context.getContentResolver(),
-                                  Settings.System.NEXT_ALARM_FORMATTED,
-                                  timeString);
+    	if( GenericDeskClockCustomization.getInstance().isSaveAlarmInSystemSettings() ) {
+	        Settings.System.putString(context.getContentResolver(),
+	                                  Settings.System.NEXT_ALARM_FORMATTED,
+	                                  timeString);
+    	}
     }
 
     /**

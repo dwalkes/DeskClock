@@ -212,7 +212,7 @@ public final class Alarm implements Parcelable {
 
     public String getLabelOrDefault(Context context) {
         if (label == null || label.length() == 0) {
-            return context.getString(R.string.default_label);
+            return GenericDeskClockCustomization.getInstance().getAlarmAlertDefaultLabel(context);
         }
         return label;
     }

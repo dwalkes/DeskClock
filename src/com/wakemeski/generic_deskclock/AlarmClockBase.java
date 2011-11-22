@@ -18,8 +18,6 @@ package com.wakemeski.generic_deskclock;
 
 import java.util.Calendar;
 
-import com.wakemeski.generic_deskclock.R;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -30,21 +28,21 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * AlarmClock application.
@@ -77,7 +75,8 @@ public class AlarmClockBase extends Activity implements OnItemClickListener {
             super(context, cursor);
         }
 
-        public View newView(Context context, Cursor cursor, ViewGroup parent) {
+        @Override
+		public View newView(Context context, Cursor cursor, ViewGroup parent) {
             View ret = mFactory.inflate(R.layout.alarm_time, parent, false);
 
             DigitalClock digitalClock = (DigitalClock) ret.findViewById(R.id.digitalClock);
@@ -86,7 +85,8 @@ public class AlarmClockBase extends Activity implements OnItemClickListener {
             return ret;
         }
 
-        public void bindView(View view, Context context, Cursor cursor) {
+        @Override
+		public void bindView(View view, Context context, Cursor cursor) {
             final Alarm alarm = new Alarm(cursor);
 
             View indicator = view.findViewById(R.id.indicator);
@@ -104,7 +104,8 @@ public class AlarmClockBase extends Activity implements OnItemClickListener {
 
             // Clicking outside the "checkbox" should also change the state.
             indicator.setOnClickListener(new OnClickListener() {
-                    public void onClick(View v) {
+                    @Override
+					public void onClick(View v) {
                         clockOnOff.toggle();
                         updateIndicatorAndAlarm(clockOnOff.isChecked(),
                                 barOnOff, alarm);
@@ -157,7 +158,8 @@ public class AlarmClockBase extends Activity implements OnItemClickListener {
 			        .setMessage(getString(R.string.delete_alarm_confirm))
 			        .setPositiveButton(android.R.string.ok,
 			                new DialogInterface.OnClickListener() {
-			                    public void onClick(DialogInterface d,
+			                    @Override
+								public void onClick(DialogInterface d,
 			                            int w) {
 			                        Alarms.deleteAlarm(AlarmClockBase.this, id);
 			                    }
@@ -201,7 +203,7 @@ public class AlarmClockBase extends Activity implements OnItemClickListener {
     protected void setContentView() {
     	setContentView(R.layout.alarm_clock_base);
     }
-    
+
     protected void updateLayout() {
     	setContentView();
 	    mAlarmsList = (ListView) findViewById(R.id.alarms_list);
@@ -210,16 +212,18 @@ public class AlarmClockBase extends Activity implements OnItemClickListener {
 	    mAlarmsList.setVerticalScrollBarEnabled(true);
 	    mAlarmsList.setOnItemClickListener(this);
 	    mAlarmsList.setOnCreateContextMenuListener(this);
-	
+
 	    View addAlarm = findViewById(R.id.add_alarm);
 	    addAlarm.setOnClickListener(new View.OnClickListener() {
-	            public void onClick(View v) {
+	            @Override
+				public void onClick(View v) {
 	                addNewAlarm();
 	            }
 	        });
 	    // Make the entire view selected when focused.
 	    addAlarm.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-	            public void onFocusChange(View v, boolean hasFocus) {
+	            @Override
+				public void onFocusChange(View v, boolean hasFocus) {
 	                v.setSelected(hasFocus);
 	            }
 	    });
@@ -258,7 +262,7 @@ public class AlarmClockBase extends Activity implements OnItemClickListener {
         // Use the current item to create a custom view for the header.
         final AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
         final Cursor c =
-                (Cursor) mAlarmsList.getAdapter().getItem((int) info.position);
+                (Cursor) mAlarmsList.getAdapter().getItem(info.position);
         final Alarm alarm = new Alarm(c);
 
         // Construct the Calendar to compute the time.
@@ -300,8 +304,8 @@ public class AlarmClockBase extends Activity implements OnItemClickListener {
         return super.onCreateOptionsMenu(menu);
     }
 
-    @SuppressWarnings("unchecked")
-    public void onItemClick(AdapterView parent, View v, int pos, long id) {
+    @Override
+	public void onItemClick(AdapterView<?> parent, View v, int pos, long id) {
         Intent intent = new Intent(this, SetAlarm.class);
         intent.putExtra(Alarms.ALARM_ID, (int) id);
         startActivity(intent);

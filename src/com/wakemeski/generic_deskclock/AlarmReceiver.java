@@ -19,8 +19,6 @@ package com.wakemeski.generic_deskclock;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.wakemeski.generic_deskclock.R;
-
 import android.app.KeyguardManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -40,7 +38,6 @@ public class AlarmReceiver extends BroadcastReceiver {
         is probably the result of a time or timezone change */
     private final static int STALE_WINDOW = 60 * 30;
 
-    @SuppressWarnings("unchecked")
     @Override
     public void onReceive(Context context, Intent intent) {
         if (Alarms.ALARM_KILLED.equals(intent.getAction())) {
@@ -96,7 +93,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         context.sendBroadcast(closeDialogs);
 
         // Decide which activity to start based on the state of the keyguard.
-        Class c = AlarmAlert.class;
+        Class<?> c = AlarmAlert.class;
         KeyguardManager km = (KeyguardManager) context.getSystemService(
                 Context.KEYGUARD_SERVICE);
         if (km.inKeyguardRestrictedInputMode()) {
@@ -193,5 +190,5 @@ public class AlarmReceiver extends BroadcastReceiver {
         nm.cancel(alarm.id);
         nm.notify(alarm.id, n);
     }
-    
+
 }
